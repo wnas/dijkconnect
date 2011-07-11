@@ -1,1 +1,7 @@
-Your we
+http://lg2.dijkconnect.com/agentterminal-web/frontend-dco.html
+
+dijkconnect00
+
+naam			-	DCO_test9
+TIN-code		-	test
+Telefoonnummer	-	10001113
