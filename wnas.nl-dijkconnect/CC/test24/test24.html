@@ -1,0 +1,418 @@
+<HTML>
+<HEAD>
+  <META NAME='author' CONTENT='©2000-2006 Annie Connect. All rights reserved.'>
+  <TITLE>Annie Connect: test24 (terug bellen)  </TITLE>
+  <SCRIPT TYPE="text/javascript" SRC="/scripts/jquery-1.6.1.js" LANGUAGE="javascript"></SCRIPT>
+  <SCRIPT TYPE="text/javascript" SRC="callsheet.js" LANGUAGE="javascript"></SCRIPT>
+  <SCRIPT TYPE="text/javascript" SRC="doValidate.js" LANGUAGE="javascript"></SCRIPT>
+  <script type="text/javascript" src="/atwt/CallsheetServer.js"></script>
+		<script>
+		niet_naar_bmn_vrs_bij_resultaten = "AFE";
+		$(document).ready(function  () {CallsheetServer.initialize();});
+		$(document).unload(function () {CallsheetServer.finalize();});
+		</script>
+<SCRIPT TYPE="text/javascript">
+<!--
+function hasClass(ele,cls) {
+  return ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
+}
+ 
+function addClass(ele,cls) {
+  if (!this.hasClass(ele,cls)) ele.className += " "+cls;
+}
+ 
+function removeClass(ele,cls) {
+  if (hasClass(ele,cls)) {
+    var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)');
+    ele.className=ele.className.replace(reg,' ');
+  }
+}
+
+function setFocusLabel(ID)
+{ addClass(document.getElementById(ID), "hasFocus");
+  console.log('Focus set to ID', ID);
+}
+
+function clearFocusLabel(ID)
+{ removeClass(document.getElementById(ID), "hasFocus");
+  console.log('Focus removed from ID', ID);
+}
+//-->
+</SCRIPT>
+
+</HEAD>
+
+<LINK REL="stylesheet" HREF="callsheet.css" TYPE="text/css">
+<BODY BGCOLOR="#E8F0F5">
+<P>
+  <B>Annie Connect: test24 (terug bellen)<HR SIZE="1">
+<FORM ACTION="callsheet.html" AUTOCOMPLETE="off" METHOD="post" NAME="callsheet">
+<INPUT TYPE="HIDDEN" NAME="annie" VALUE="23314">
+<INPUT TYPE="HIDDEN" NAME="sleutel" VALUE="">
+<INPUT TYPE="HIDDEN" NAME="csmode" VALUE="terugbel">
+<INPUT TYPE="HIDDEN" NAME="field[Annie]" VALUE="23314">
+<INPUT TYPE="HIDDEN" NAME="field[CSMode]" VALUE="terugbel">
+<INPUT TYPE="HIDDEN" NAME="field[Callcount]" VALUE="2">
+<INPUT TYPE="HIDDEN" NAME="field[Datum]" VALUE="2011-06-22">
+<INPUT TYPE="HIDDEN" NAME="field[Tijd]" VALUE="17:23:49">
+<INPUT TYPE="HIDDEN" NAME="field[Belstempel]" VALUE="2011-06-22 17:23:49">
+<INPUT TYPE="HIDDEN" NAME="field[ID]" VALUE="13">
+<INPUT TYPE="HIDDEN" NAME="field[Servicenummer]" VALUE="">
+<INPUT TYPE="HIDDEN" NAME="field[Cli]" VALUE="">
+<INPUT TYPE="HIDDEN" NAME="field[Cli]" VALUE="">
+<INPUT TYPE="HIDDEN" NAME="field[ContactID]" VALUE="1060597672">
+<INPUT TYPE="HIDDEN" NAME="submitURL" VALUE="">
+<TABLE BORDER="0" BGCOLOR="white">
+
+
+<!--
+Direkt Hieronder HIDDEN fields opgeven indien deze niet in het form zichtbaar moeten zijn  
+maar wel terecht moeten komen in de stats tabel.
+Let erop dat in callcenter.php ook de standaard velden als HIDDEN worden meegegeven en let op dat 
+de hoofd en kleine letters van de array overeenkomen met die van de database!
+bv: <INPUT TYPE="HIDDEN" NAME="field[Bron]" VALUE="A">
+De Terugbeldatum en terugbeltijd moeten in HIDDEN als er geen B in de resultaten zit omdat ze anders in de dovalidate
+gedisabled of enabled worden en er niet zijn.
+-->
+<INPUT TYPE="HIDDEN" NAME="field[Bron]" VALUE="A">
+<INPUT TYPE="hidden" NAME="kwg" value=""> <!-- Klant weigert gesprek. (resultaat X en opmerking: klant weigert gesprek -->
+<INPUT TYPE="hidden" NAME="vma" value=""> <!-- Voicemail aangetroffen -->
+<INPUT TYPE="hidden" NAME="zte" value=""> <!-- Klant Zit Te Eten -->
+
+
+
+
+
+<TR><TD CLASS="mith" COLSPAN="3">
+<input type=button name="knop_kwg" id="knop_kwg" value="Klant weigert gesprek">
+<input type=button name="vmaonzin" value="Voicemail aangetroffen" onclick="document.callsheet.vma.value='yes'; CCallsheetServer.beforeSubmit();  allsheetServer.beforeSubmit();  CallsheetServer.beforeSubmit(); document.callsheet.submit()">
+</TD></TR>
+<TR><TD CLASS="mith" COLSPAN="3">21-06-2011  15:59 : Niet opgenomen<br>22-06-2011  17:20 : Terugbelafspraak gemaakt voor 22-06-2011  17:15 (opmerking : Test)<br>22-06-2011  17:23 : Terugbelafspraak gemaakt voor 22-06-2011  17:20 (opmerking : Test)<br></TD></TR><TR><TD CLASS="mith" COLSPAN="3">EXTRA BMNR CONTROLE</TD></TR>CallsheetServer.beforeSubmit();document.callsheet.submit()">
+</TD></TR>
+<TR><TD CLASS="mith" COLSPAN="3">21-06-2011  15:59 : Niet opgenomen<br>22-06-2011  17:20 : Terugbelafspraak gemaakt voor 22-06-2011  17:15 (opmerking : Test)<br>22-06-2011  17:23 : Terugbelafspraak gemaakt voor 22-06-2011  17:20 (opmerking : Test)<br></TD></TR><TR><TD CLASS="mith" COLSPAN="3">EXTRA BMNR CONTROLE</TD></TR>
+
+  <TR>
+  <TD CLASS=mitc3>klant zegt in BMNR te staan</TD>
+  <TD CLASS=mitc1><I>&nbsp;</I></TD>
+  <TD CLASS=mitc4>
+  <INPUT TYPE=radio NAME="field[bmnr]" VALUE="JA" validate="isRadioChecked(self)" label="klant zegt in BMNR te staan" 2 >JA<BR>
+<INPUT TYPE=radio NAME="field[bmnr]" VALUE="NEE"   2 CHECKED>NEE<BR>
+</TD></TR>
+
+<TR>
+<TD colspan=3 bgcolor='#ffffaa'>
+<a href="" target="_blank"><img src="./plaatje" hspace=10 vspace=10 align=right></a> 
+
+<font color=blue><BR>
+<BR>
+Goedemiddag, u spreekt met Jan Beuker van Nationale Vereniging de Zonnebloem. <BR>
+Ik ben op zoek naar de heer of mevrouw  , komt het even gelegen?<BR>
+<BR>
+<b><u></font><font color=black>[Belangrijk in je gesprekken:]</font><font color=blue></b></u><BR>
+<BR>
+<b> De Zonnebloem </b><BR>
+- …Èn van de grootste vrijwilligersorganisaties van Nederland (ruim 40.000 vrijwilligers)<BR>
+- Bestaat al ruim 60 jaar<BR>
+- Speciale jongeren afdeling LinQ<BR>
+- jaarlijks 1.3 miljoen huisbezoeken<BR>
+- dagactiviteiten zoals; winkelochtenden, huifkartochten, ballonvaarten, theatertournee, rondvaartboot en nog veel meer!<BR>
+</font><font color=black>[kijk voor actuele informatie op www.zonnebloem.nl]</font><font color=blue><BR>
+<BR>
+<b> Belang </b><BR>
+- Veel meer aanvragen dan mogelijkheden, dus veel mensen teleurstellen<BR>
+- dit komt mede door de vergrijzing in Nederland (bijna 2.5 miljoen ouderen)<BR>
+- hoe meer leden, hoe breder het draagvlak van de Zonnebloem!<BR>
+- Vakantieschip zorgt ervoor dat er wekelijks circa 140 mensen op vakantie kunnen die zelfstandig niet meer op vakantie kunnen<BR>
+<BR>
+<b> Gerust stellen </b><BR>
+- alles wordt per brief bevestigd voordat er wordt afgeschreven<BR>
+- mensen zitten nooit ergens aan vast, wijzigen of stoppen kan altijd met 1 telefoontje<BR>
+- de Zonnebloem organiseert alleen activiteiten, ze sturen gasten niet 'gratis' op vakantie of mee met een activiteit<BR>
+<BR>
+<b> Acceptgiro's</b><BR>
+- Geen zekerheid van inkomsten voor de Zonnebloem (slechts 3% wordt door de mensen ingevuld en terug gestuurd)<BR>
+- Hogere kosten voor de verwerking (enkele euro's)<BR>
+<BR>
+</font>
+</TD>
+</TR>
+
+
+
+<TR><TD CLASS="mith" COLSPAN="3">Verkoopgegevens</TD></TR>
+
+
+    <TR> 
+    <TD CLASS=mitc3>Bedrag</TD>
+    <TD CLASS=mitc1><I>0.00&nbsp;</I></TD>
+    <TD CLASS=mitc4><INPUT TYPE=text NAME="field[Bedrag]" VALUE="0.00" SIZE=6 MAXLENGTH=6 CLASS=mii  label="Bedrag" validate="/^[1-9][\d,]*$/" picture="" >
+  </TD></TR>
+
+  <TR>
+  <TD CLASS=mitc3>Periode van betaling</TD>
+  <TD CLASS=mitc1><I>&nbsp;</I></TD>
+  <TD CLASS=mitc4>
+  <INPUT TYPE=radio NAME="field[Periode]" VALUE="A" validate="isRadioChecked(self)" label="Periode van betaling" onvalid="periodeHandler(self)" CHECKED>Maand<BR>
+<INPUT TYPE=radio NAME="field[Periode]" VALUE="B"   onvalid="periodeHandler(self)" >Kwartaal<BR>
+<INPUT TYPE=radio NAME="field[Periode]" VALUE="D"   onvalid="periodeHandler(self)" >Jaar<BR>
+<INPUT TYPE=radio NAME="field[Periode]" VALUE="E"   onvalid="periodeHandler(self)" >Eenmalig<BR>
+<INPUT TYPE=radio NAME="field[Periode]" VALUE="F"   onvalid="periodeHandler(self)" ><u>Acceptgiro</u><BR>
+</TD></TR>
+
+<TR>
+<TD colspan=3 bgcolor='#ffffaa'>
+<font color=blue> Van welk bank- of girorekeningnummer mogen wij de bijdrage afschrijven? </font>
+</TD>
+</TR>
+
+
+    <TR> 
+    <TD CLASS=mitc3>Rekeningnummer</TD>
+    <TD CLASS=mitc1><I>&nbsp;</I></TD>
+    <TD CLASS=mitc4><INPUT TYPE=text NAME="field[Rekeningnummer]" VALUE="" SIZE=35 MAXLENGTH=9 CLASS=mii  label="Rekeningnummer" validate="elfproef(self)" picture="999999999" ACCESSKEY="R">
+  </TD></TR>
+
+<TR>
+<TD colspan=3 bgcolor='#ffffaa'>
+<font color=blue> Zou ik ook uw geboorte datum mogen noteren meneer / mevrouw?</font>
+</TD>
+</TR>
+
+
+    <TR> 
+    <TD CLASS=mitc3>Geboortedatum</TD>
+    <TD CLASS=mitc1><I>&nbsp;</I></TD>
+    <TD CLASS=mitc4><INPUT TYPE=text NAME="field[Geboortedatum]" VALUE="" SIZE=35 MAXLENGTH=10 CLASS=mii  label="Geboortedatum" validate="/(^(([012]\d-([0][1-9]|1[012])|30-(01|03|04|05|06|07|08|09|10|11|12)|31-(01|03|05|07|08|10|12))-(19\d\d|200[0-7])$|^)$)/" picture="99-99-9999" ACCESSKEY="G">
+  <i id='gebc'></i></TD></TR>
+
+    <TR> 
+    <TD CLASS=mitc3>Ingangsdatum<BR>(<font size=1>Nooit zelf over beginnen)</font></TD>
+    <TD CLASS=mitc1><I>&nbsp;</I></TD>
+    <TD CLASS=mitc4><INPUT TYPE=text NAME="field[Ingangsdatum]" VALUE="" SIZE=35 MAXLENGTH=10 CLASS=mii  label="Ingangsdatum<BR>(<font size=1>Nooit zelf over beginnen)</font>" validate="/^(([0123]\d\-[01]\d\-(20)\d\d)|)$/" picture="99-99-9999" >
+  </TD></TR>
+
+
+
+<TR>
+<TD colspan=3 bgcolor='#ffffaa'>
+<font color=blue> <b> LET OP: controleer de gegevens altijd goed als de persoon lid wordt!]</font><font color=blue></b></font>
+</TD>
+</TR>
+
+<TR><TD CLASS="mith" COLSPAN="3">Persoonsgegevens</TD></TR>
+
+
+    <TR> 
+    <TD CLASS=mitc3>ID</TD>
+    <TD CLASS=mitc1><I>13&nbsp;</I></TD>
+    <TD CLASS=mitc4><INPUT TYPE=text NAME="field[ID]" VALUE="13" SIZE=8 MAXLENGTH=8 CLASS=miir  label="ID" validate="" picture="" READONLY>
+  </TD></TR>
+
+    <TR> 
+    <TD CLASS=mitc3>Telefoon</TD>
+    <TD CLASS=mitc1><I>0655333848&nbsp;</I></TD>
+    <TD CLASS=mitc4><INPUT TYPE=text NAME="field[Telefoon]" VALUE="0655333848" SIZE=35 MAXLENGTH=13 CLASS=mii  label="Telefoon" validate="/^$|^(0\d{9}|00\d{11})$/" picture="9999999999" ACCESSKEY="T">
+  </TD></TR>
+
+  <TR>
+  <TD CLASS=mitc3>Geslacht</TD>
+  <TD CLASS=mitc1><I>&nbsp;</I></TD>
+  <TD CLASS=mitc4>
+  <INPUT TYPE=radio NAME="field[Geslacht]" VALUE="V" validate="isRadioChecked(self)" label="Geslacht"  >Vrouw<BR>
+<INPUT TYPE=radio NAME="field[Geslacht]" VALUE="M"    >Man<BR>
+</TD></TR>
+
+    <TR> 
+    <TD CLASS=mitc3>Voorletters</TD>
+    <TD CLASS=mitc1><I>&nbsp;</I></TD>
+    <TD CLASS=mitc4><INPUT TYPE=text NAME="field[Voorletters]" VALUE="" SIZE=35 MAXLENGTH=10 CLASS=mii  label="Voorletters" validate="/^(([A-Z\.])+)/" picture="X.X.X.X.X." ACCESSKEY="V">
+  </TD></TR>
+
+    <TR> 
+    <TD CLASS=mitc3>Tussenvoegsels</TD>
+    <TD CLASS=mitc1><I>&nbsp;</I></TD>
+    <TD CLASS=mitc4><INPUT TYPE=text NAME="field[Tussenvoegsels]" VALUE="" SIZE=35 MAXLENGTH=10 CLASS=mii  label="Tussenvoegsels" validate="/.*/" picture="" ACCESSKEY="U">
+  </TD></TR>
+
+
+    <TR> 
+    <TD CLASS=mitc3>Achternaam</TD>
+    <TD CLASS=mitc1><I>&nbsp;</I></TD>
+    <TD CLASS=mitc4><INPUT TYPE=text NAME="field[Achternaam]" VALUE="" SIZE=35 MAXLENGTH=30 CLASS=mii  label="Achternaam" validate="/^.+$/" picture="X" ACCESSKEY="A">
+  </TD></TR>
+
+
+
+<TR><TD CLASS="mith" COLSPAN="3">Adresgegevens</TD></TR>
+
+
+    <TR> 
+    <TD CLASS=mitc3>Postcode</TD>
+    <TD CLASS=mitc1><I>&nbsp;</I></TD>
+    <TD CLASS=mitc4><INPUT TYPE=text NAME="field[Postcode]" VALUE="" SIZE=27 MAXLENGTH=6 CLASS=mii  label="Postcode" validate="/^((\d{4}\w{2}))$/" picture="9999XX" ACCESSKEY="P">
+  </TD></TR>
+
+    <TR> 
+    <TD CLASS=mitc3>Huisnummer</TD>
+    <TD CLASS=mitc1><I>&nbsp;</I></TD>
+    <TD CLASS=mitc4><INPUT TYPE=text NAME="field[Huisnummer]" VALUE="" SIZE=35 MAXLENGTH=10 CLASS=mii  label="Huisnummer" validate="/^([1-9][0-9\-]*)$/" picture="" ACCESSKEY="H">
+  <INPUT TYPE="button" NAME="zoek" CLASS="mii" VALUE="Zoek" ONCLICK="get_address_strict(this.form['field[Postcode]'].value,this.form['field[Huisnummer]'].value,this.form['field[Straatnaam]'],this.form['field[Woonplaats]']);"> (ook huisnummer invullen!)</TD></TR>
+
+    <TR> 
+    <TD CLASS=mitc3>Huisnummer toevoeging</TD>
+    <TD CLASS=mitc1><I>&nbsp;</I></TD>
+    <TD CLASS=mitc4><INPUT TYPE=text NAME="field[Huisnummer_toevoeging]" VALUE="" SIZE=35 MAXLENGTH=10 CLASS=mii  label="Huisnummer toevoeging" validate="/^(.*)$/" picture="" ACCESSKEY="I">
+  </TD></TR>
+
+    <TR> 
+    <TD CLASS=mitc3>Straatnaam</TD>
+    <TD CLASS=mitc1><I>Mevrouw J. HoeboerDr De Visserstraat 382042 Bz  Zandvoort&nbsp;</I></TD>
+    <TD CLASS=mitc4><INPUT TYPE=text NAME="field[Straatnaam]" VALUE="Mevrouw J. HoeboerDr De Visserstraat 382042 Bz  Zandvoort" SIZE=35 MAXLENGTH=100 CLASS=mii  label="Straatnaam" validate="/^.+$/" picture="" ACCESSKEY="S">
+  </TD></TR>
+
+    <TR> 
+    <TD CLASS=mitc3>Woonplaats</TD>
+    <TD CLASS=mitc1><I>&nbsp;</I></TD>
+    <TD CLASS=mitc4><INPUT TYPE=text NAME="field[Woonplaats]" VALUE="" SIZE=35 MAXLENGTH=35 CLASS=mii  label="Woonplaats" validate="/^.+$/" picture="" ACCESSKEY="W">
+  </TD></TR>
+
+
+
+<TR>
+<TD colspan=3 bgcolor='#ffffaa'>
+<font color=blue> Mag ik ook uw emailadres noteren zodat wij u via de email op de hoogte kunnen houden van onze activiteiten? </font>
+</TD>
+</TR>
+
+
+    <TR> 
+    <TD CLASS=mitc3>Email</TD>
+    <TD CLASS=mitc1><I>jadehoeboer@hotmail.com&nbsp;</I></TD>
+    <TD CLASS=mitc4><INPUT TYPE=text NAME="field[Email]" VALUE="jadehoeboer@hotmail.com" SIZE=35 MAXLENGTH=200 CLASS=mii  label="Email" validate="checkMailAddress(self)" picture="" ACCESSKEY="E">
+  </TD></TR>
+  <TR>
+  <TD CLASS=mitc3>Reden e-mail</TD>
+  <TD CLASS=mitc1><I>&nbsp;</I></TD>
+  <TD CLASS=mitc4>
+  <INPUT TYPE=radio NAME="field[emailreden]" VALUE="opgegeven" validate="isRadioCheckedMail(self)" label="Reden e-mail"  >Klant heeft e-mail opgegeven<BR>
+<INPUT TYPE=radio NAME="field[emailreden]" VALUE="geenemail"    >Klant heeft geen e-mail<BR>
+<INPUT TYPE=radio NAME="field[emailreden]" VALUE="wilnietgeven"    >Klant wil e-mail niet geven<BR>
+</TD></TR>
+  <TR>
+  <TD CLASS=mitc3>Hoe wilt u de bevestigingsbrief ontvangen?</TD>
+  <TD CLASS=mitc1><I>&nbsp;</I></TD>
+  <TD CLASS=mitc4>
+  <INPUT TYPE=radio NAME="field[bevestigingsbrief]" VALUE="mail" validate="isRadioChecked(self)" label="Hoe wilt u de bevestigingsbrief ontvangen?" 2 >Per email<BR>
+<INPUT TYPE=radio NAME="field[bevestigingsbrief]" VALUE="post"   2 CHECKED>Per post<BR>
+</TD></TR>
+
+
+
+<TR>
+<TD colspan=3 bgcolor='#ffffaa'>
+<font color=blue><BR>
+<BR>
+<i><b> Indien de persoon zich wil aanmelden als gast of vrijwilliger dan kan je de persoon doorverwijzen <BR>
+naar het dienstencentrum van de Zonnebloem 076 56 46 464 of www.zonnebloem.nl</i></b><BR>
+<BR>
+Voor de volledigheid zou ik graag alle afspraken nog met u doornemen.<BR>
+<BR>
+- U gaat de Zonnebloem als ondersteunend lid steunen voor een bedrag van (noem bedrag) per (noem periode)<BR>
+- Wij mogen dit bedrag automatisch afschrijven van rekening met nummer (noem nummer)<BR>
+- Voordat wij dit bedrag afschrijven ontvangt u eerst een schriftelijke bevestiging.<BR>
+- U kunt uw donatie te allen tijde stopzetten middels ÈÈn telefoontje<BR>
+<BR>
+Dan heb ik alles genoteerd meneer / mevrouw. Ik wil u hartelijk danken voor uw steun aan de Zonnebloem. <BR>
+U ontvangt van ons zo spoedig mogelijk de bevestigingsbrief en ik wens u nog een hele fijne dag/avond! </font>
+</TD>
+</TR>
+<!--------------------------------------------------------------------------------------------------------->
+<!---------------------------------------------------- callsheet footer ----------------------------------->
+<!--------------------------------------------------------------------------------------------------------->
+
+<TR>
+  <TD CLASS="mith" COLSPAN="3">Gespreksgegevens</TD>
+</TR>
+<TR>
+  <TD CLASS="mitc3" COLSPAN="2">Resultaat</td></TD>
+  <TD CLASS="mitc4">
+    <INPUT TYPE="radio" VALUE="C" NAME="field[Resultaat]" CLASS="mii" ONCHANGE="doValidate(this.form)" label="Resultaat" validate="checkResult(self)" onvalid="resultHandler(self)"> Gereed, verkoop<BR>
+    <INPUT TYPE="radio" VALUE="N" NAME="field[Resultaat]" CLASS="mii" label="Resultaat" > Gereed, donateur<BR>
+    <INPUT TYPE="radio" VALUE="X" NAME="field[Resultaat]" CLASS="mii" label="Resultaat" > Gereed, geen interesse<BR>
+    <INPUT TYPE="radio" VALUE="W" NAME="field[Resultaat]" CLASS="mii" label="Resultaat" > Gereed, is al lid<BR>
+    <INPUT TYPE="radio" VALUE="A" NAME="field[Resultaat]" CLASS="mii" label="Resultaat" > Niet opgenomen<BR>
+    <INPUT TYPE="radio" VALUE="F" NAME="field[Resultaat]" CLASS="mii" label="Resultaat" > In gesprek<BR>
+    <INPUT TYPE="radio" VALUE="B" NAME="field[Resultaat]" CLASS="mii" label="Resultaat" > Terugbellen<BR>
+    <INPUT TYPE="radio" VALUE="M" NAME="field[Resultaat]" CLASS="mii" label="Resultaat" > Ander tijdstip<BR>
+    <INPUT TYPE="radio" VALUE="E" NAME="field[Resultaat]" CLASS="mii" label="Resultaat" > Fout nummer<BR>
+</TD>
+</TR>
+
+<TR>
+  <TD CLASS="mitc3" COLSPAN="2">Terugbeldatum</td></TD>
+    <TD CLASS="mitc4"><INPUT ID="JF1234" TYPE="text" MAXLENGTH="10" SIZE="10" VALUE="22-07-2011" NAME="field[Terugbeldatum]" Label="Terugbeldatum" validate="/^22-06-2011|23-06-2011|24-06-2011|25-06-2011|27-06-2011|28-06-2011|29-06-2011|30-06-2011|01-07-2011|02-07-2011|04-07-2011|05-07-2011|06-07-2011|07-07-2011|08-07-2011|09-07-2011|11-07-2011|12-07-2011|13-07-2011|14-07-2011|15-07-2011|16-07-2011|18-07-2011|19-07-2011|20-07-2011|21-07-2011|22-07-2011|23-07-2011|25-07-2011|26-07-2011|27-07-2011|28-07-2011|29-07-2011|30-07-2011|01-08-2011|02-08-2011|03-08-2011|04-08-2011|05-08-2011|06-08-2011|08-08-2011|09-08-2011|10-08-2011|11-08-2011|12-08-2011|13-08-2011|15-08-2011|16-08-2011|17-08-2011|18-08-2011|19-08-2011|20-08-2011|22-08-2011/" onFocus="setFocusLabel('JF1234')" onBlur="clearFocusLabel('JF1234')" CLASS="mii" VALUE="" picture="99-99-9999" ACCESSKEY="B">(DD-MM-YYYY) niet later dan 22-08-2011</TD>
+</TR>
+<TR>
+  <TD CLASS="mitc3" COLSPAN="2">Terugbeltijd</td></TD>
+  <TD CLASS="mitc4"><INPUT ID="JF1235" TYPE="text" MAXLENGTH="5" SIZE="5" NAME="field[Terugbeltijd]" Label="Terugbeltijd" validate="/^((09|10|11|12|13|14|15|16|17|18|19|20):[0-5]\d)|(21:00)$/" CLASS="mii" VALUE="" picture="99:99" onFocus="setFocusLabel('JF1235')" onBlur="clearFocusLabel('JF1235')">(HH:MM) tussen 09:00 en 21:00</TD>
+</TR>
+
+<TR>
+  <TD CLASS="mitc3" VALIGN="top" COLSPAN="2">Opmerkingen<BR><INPUT TYPE="text" NAME="textcount" CLASS="mii" SIZE="2" VALUE="255" READONLY></TD>
+  <TD CLASS="mitc4"><TEXTAREA ACCESSKEY="O" ONKEYPRESS="LimitText(this,255)" ONKEYUP="TrackCount(this,'textcount',255)" COLS="34" ROWS="5" NAME="field[Opmerkingen]" CLASS="mii">Test</TEXTAREA></TD>
+</TR>
+
+
+
+
+
+<script language="JavaScript" type="text/javascript">
+<!--
+// zet boolean is Bel me niet register
+var bIsBMNR = true;
+// -->
+</script>
+
+<TR>
+<TD colspan=3 bgcolor="#ffffaa" id="btekst_vak">
+<span id="btekst">
+<font color=black><h4>Bel me niet register</h4><br>
+Het volgende gedeelte dien je in al je gesprekken verplicht te vermelden en dien je letterlijk op te lezen (je mag er dus niet een eigen tekst van maken, onderstaande tekst dien je letterlijk voor te lezen aan de klant).</font><br>
+<br>
+<font color=red><b>
+Ik wil u nog even wijzen op uw rechten in de telemarketing.<br>
+Als u nog even aan de lijn blijft wordt u doormiddel van een bandje het recht van verzet en het bel-me-niet register aangeboden.<br>
+Prettige dag.<br>
+</b></font></span>
+</TD>
+</TR>
+
+<TR>
+  <TD COLSPAN="2">
+    <INPUT TYPE="submit" CLASS="mii" VALUE="Klaar" ID="klaarknop" NAME="ingevuld" style='display: none' ACCESSKEY="K">
+  	 <span class="fakebutton" id="bmn_vrs_knop" onclick="CallsheetServer.bmnr(); toonKlaarknop(); return false;" name="vrsknop" title="Stuur klant naar VRS">Stuur klant naar Bel Me Niet</span>
+         <span class="fakebutton" id="test_knop" onclick="DummyCommandForDebug(); return false;" name="testknop" title="Zeg Hallo">Hallo!!</span>
+         <span class="fakebutton" id="focus_knop" onclick="DummyCommandSetFocus(); return false;" name="focusknop" title="Set focus">Set focus!</span>
+    <br />
+    <a name="bottom" id="jadus">&nbsp;</a>
+  </TD>
+</TR>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--======================================================================================================-->
+</TABLE>
+</FORM>
+</BODY>
+</HTML>
+ 

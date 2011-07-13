@@ -1,0 +1,121 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" lang="nl" xml:lang="nl"> 
+<head> 
+	<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+	<!-- Maven artifact DCO Core - AgentTerminal service version 1.2.2 -->
+    <title>ATWT - Annie Connect</title> 
+    <link rel="stylesheet" type="text/css" href="frontend-common.css" /> 
+    <link rel="stylesheet" type="text/css" href="frontend-annie.css" /> 
+	<link rel="shortcut icon" type="image/x-icon" href="http://callcenter.annie.nl/dco/favicon.ico" />    
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" /> 
+    <meta http-equiv="Content-Script-Type" content="text/javascript" /> 
+    <meta http-equiv="Content-Style-Type" content="text/css" /> 
+    <script type="text/javascript">//<![CDATA[
+    var ie = false;
+    //]]></script> 
+<!--[if lte IE 8]>
+    <script type="text/javascript">//<![CDATA[
+    var ie = true;
+    //]]></script>
+    <style type="text/css">#remember { border: 0 };</style>
+<![endif]-->
+<!--[if lte IE 7]>
+ <link rel="stylesheet" type="text/css" href="frontend-ie7min.css" />
+ <![endif]-->
+</head> 
+ 
+
+<body> 
+ 
+    <div id="Sidebar"> 
+         <!-- Button 5 -->
+        <a href="#" id="actMute"             class="Action" title="Dempen"                 onmouseup="if ( checkEnabled( this ) ) CoreClient.mute(); return false;"><span><span>&nbsp;</span></span></a> 
+        <a href="#" id="actUnmute"           class="Action" title="Ontdempen"              onmouseup="if ( checkEnabled( this ) ) CoreClient.unmute(); return false;"><span><span>&nbsp;</span></span></a>
+
+		<div id="SidebarControlsTop">
+            <a href="#" id="actLogout"           class="Action" title="Afmelden [ESC]"         onmouseup="if ( checkEnabled( this ) ) CoreClient.logout(); return false;"><span><span>&nbsp;</span></span></a> 
+            <a href="#" id="actConnect"          class="Action" title="Starten [ENTER]"        onmouseup="if ( checkEnabled( this ) ) CoreClient.connect( document.getElementById( 'phone' ).value ); return false;"><span><span>&nbsp;</span></span></a> 
+            <a href="#" id="actDisconnect"       class="Action" title="Stoppen [ESC]"          onmouseup="if ( checkEnabled( this ) ) CoreClient.disconnect(); return false;"><span><span>&nbsp;</span></span></a> 
+            <a href="#" id="actPauze"            class="Action" title="Pauze"                  onmouseup="if ( checkEnabled( this ) ) CoreClient.pauze(); return false;"><span><span>&nbsp;</span></span></a>    
+            <a href="#" id="actResume"           class="Action" title="Doorgaan"               onmouseup="if ( checkEnabled( this ) ) CoreClient.resume(); return false;"><span><span>&nbsp;</span></span></a>  
+		</div>
+        <div id="SidebarControlsBottom"> 
+			<div id="emptyRelativePlaceholder"></div>
+            <a href="#" id="actStartRecording"   class="Action" title="Opname starten"         onmouseup="if ( checkEnabled( this ) ) CoreClient.callStartRecording(); return false;"><span class="Call"><span>&nbsp;</span></span></a> 
+            <a href="#" id="actStopRecording"    class="Action" title="Opname stoppen"         onmouseup="if ( checkEnabled( this ) ) CoreClient.callStopRecording(); return false;"><span class="Call"><span>&nbsp;</span></span></a>
+            <a href="#" id="actDisconnectCaller" class="Action" title="Ophangen"               onmouseup="if ( checkEnabled( this ) ) CoreClient.callDisconnect(); return false;"><span class="Call"><span>&nbsp;</span></span></a>  
+            <a href="#" id="actHold"             class="Action" title="In wacht zetten"        onmouseup="if ( checkEnabled( this ) ) CoreClient.callHold(); return false;"><span class="Call"><span>&nbsp;</span></span></a>  
+            <a href="#" id="actUnhold"           class="Action" title="Terugnemen"             onmouseup="if ( checkEnabled( this ) ) CoreClient.callUnhold(); return false;"><span class="Call"><span>&nbsp;</span></span></a>  
+            <a href="#" id="actNext"             class="Action" title="Volgende"               onmouseup="if ( checkEnabled( this ) ) CoreClient.next(); return false;"><span><span>&nbsp;</span></span></a>    
+            <a href="#" id="actBlockCaller"             class="Action" title="Blokkeer"               onmouseup="if ( checkEnabled( this ) ) CoreClient.callBlackList(); return false;"><span class="Call"><span>&nbsp;</span></span></a>
+            <a href="#" id="actTransferToIVRApp" class="Action" title="Doorzetten naar Bel-me-niet-register"   onmouseup="if ( checkEnabled( this ) ) CoreClient.callTransferToIvr( 'bel_me_niet' ); return false;"><span class="Call"><span>&nbsp;</span></span></a>  
+        </div> 
+   </div> 
+ 
+
+<!--    <img id="logo" src="logo.png" alt="DijkConnect" /> --> 
+    
+    <iframe id="Viewport" title="Werkvenster" frameborder="0"></iframe> 
+    
+    <iframe id="Buffer" title="Buffer" frameborder="0"></iframe> 
+    
+    <iframe id="Task" title="Taak" frameborder="0"></iframe> 
+    
+    <div id="Login"> 
+        
+        <div class="wrapper"> 
+        <p id="logo"><img src="https://callcenter.annie.nl/atwt/paginas/logo.png" alt="Annie Connect" /></p> 
+        <p id="links"> 
+            <a href="http://mijn.annie.nl" target="_blank">Naar de medewerkerspagina</a> &mdash;
+            <a href="http://callcenter.annie.nl/pz" target="_blank">Naar het PZ-systeem</a> 
+        </p> 
+        <h1>Aanmelden</h1> 
+        <form id="LoginForm" action="javascript:void(0);" onsubmit="ContactCenter.setPassword( $( 'password' ).value ); ContactCenter.setLicenseeId(42); CoreClient.login( $( 'username' ).value, $( 'password' ).value, 42, 'http://dijkconnect00.colo.bit.nl/agentterminal-web/CoreServer.html' ); return false;"> 
+ 
+            <table title="Aanmeldformulier"> 
+                <tr> 
+                    <th><label for="username" class="Required"><em>N</em>aam</label></th> 
+                    <td><input id="username" name="username" accesskey="N" class="Required" title="Vul hier je gebruikersnaam in" /></td> 
+                </tr> 
+                <tr> 
+                    <th><label for="password" class="Required">TIN-<em>C</em>ode</label></th> 
+                    <td><input id="password" name="password" type="password" accesskey="C" class="Required" title="Vul hier je TIN-code in" /></td> 
+                </tr> 
+                <tr> 
+                    <th><label for="phone"><em>T</em>elefoonnummer</label></th> 
+                    <td><input id="phone" name="phone" accesskey="T" title="Vul hier je telefoonnummer in als dit afwijkt van je gebruikelijke telefoonnummer" /></td> 
+                </tr> 
+                <tr> 
+                    <th>&nbsp;</th> 
+                    <td><label for="remember" title="Vink deze optie aan om je aanmeldgegevens (exclusief TIN-code) op te slaan op deze computer" style="text-align: left; width: 200px; line-height: 20px;"><input id="remember" name="remember" type="checkbox" style="width: 16px; float: left; margin-right: 10px;" accesskey="S" /><em>S</em>la deze gegevens op</label></td> 
+                </tr> 
+                <tr> 
+                    <th>&nbsp;</th> 
+                    <td >  
+                        <a href="javascript:void(0);" title="Aanmelden [ENTER]" class="Action" id="actLogin" onclick="$('LoginForm').onsubmit(); return false;" accesskey="A"><span style="height: 32px; line-height: 32px;"><em>A</em>anmelden</span></a> 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td> 
+                    </td> 
+                    <td> 
+                    </td> 
+                </tr> 
+            </table> 
+        </form> 
+        </div> 
+    </div> 
+    <div id="Loading"> 
+        <img alt="Bezig met laden..." src="load.gif" /><span id="Progress">Bezig met laden...</span> 
+        <a href="#" style="position: absolute; z-index: 100000000000000; width: 24px; height: 24px; text-align: center; line-height: 24px; padding: 0; border: 0; visibility: visible; display: block; top: 2px; right: 4px;; color: gray;" onmouseup="ContactCenter.transitionCancel(); return false;" class="Action">x</a><br/> 
+    </div> 
+    <div id="Error">&nbsp;</div> 
+    <div id="Console">&nbsp;</div>
+	<script type="text/javascript" src="easyxdm.js"></script>
+	<script type="text/javascript" src="System.js"></script>
+	<script type="text/javascript" src="CoreShared.js"></script>
+	<script type="text/javascript" src="CoreClient.js"></script>
+	<script type="text/javascript" src="ContactCenter.js"></script>
+    <script type="text/javascript" src="frontend-common.js"></script>
+   </body> 
+</html>

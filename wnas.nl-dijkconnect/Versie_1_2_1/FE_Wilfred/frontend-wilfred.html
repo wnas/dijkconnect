@@ -1,0 +1,394 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" lang="nl" xml:lang="nl"> 
+<head> 
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+
+	<!-- Maven artifact DCO Core - AgentTerminal service version 1.2.1-1 -->
+    <title>ATWT - Annie Connect</title> 
+    <link rel="stylesheet" type="text/css" href="http://callcenter.annie.nl/atwt/startpagina.opmaak.css" /> 
+    <link rel="stylesheet" type="text/css" href="frontend-common.css" /> 
+    <link rel="stylesheet" type="text/css" href="frontend-annie.css" /> 
+	<link rel="shortcut icon" type="image/x-icon" href="http://callcenter.annie.nl/dco/favicon.ico" />    
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" /> 
+    <meta http-equiv="Content-Script-Type" content="text/javascript" /> 
+    <meta http-equiv="Content-Style-Type" content="text/css" /> 
+    <script type="text/javascript">//<![CDATA[
+    var ie = false;
+    //]]></script> 
+<!--[if IE]>
+    <script type="text/javascript">//<![CDATA[
+    var ie = true;
+    //]]></script>
+    <style type="text/css">#remember { border: 0 };</style>
+<![endif]-->
+<!--[if lte IE 7]>
+ <link rel="stylesheet" type="text/css" href="frontend-ie7min.css" />
+ <![endif]-->
+</head> 
+ 
+
+<body> 
+ 
+    <div id="Sidebar"> 
+         <!-- Button 5 -->
+        <a href="#" id="actMute"             class="Action" title="Dempen"                 onmouseup="if ( checkEnabled( this ) ) CoreClient.mute(); return false;"><span><span>&nbsp;</span></span></a> 
+        <a href="#" id="actUnmute"           class="Action" title="Ontdempen"              onmouseup="if ( checkEnabled( this ) ) CoreClient.unmute(); return false;"><span><span>&nbsp;</span></span></a>
+
+		<div id="SidebarControlsTop">
+            <a href="#" id="actLogout"           class="Action" title="Afmelden [ESC]"         onmouseup="if ( checkEnabled( this ) ) CoreClient.logout(); return false;"><span><span>&nbsp;</span></span></a> 
+            <a href="#" id="actConnect"          class="Action" title="Starten [ENTER]"        onmouseup="if ( checkEnabled( this ) ) CoreClient.connect( document.getElementById( 'phone' ).value ); return false;"><span><span>&nbsp;</span></span></a> 
+            <a href="#" id="actDisconnect"       class="Action" title="Stoppen [ESC]"          onmouseup="if ( checkEnabled( this ) ) CoreClient.disconnect(); return false;"><span><span>&nbsp;</span></span></a> 
+            <a href="#" id="actPauze"            class="Action" title="Pauze"                  onmouseup="if ( checkEnabled( this ) ) CoreClient.pauze(); return false;"><span><span>&nbsp;</span></span></a>    
+            <a href="#" id="actResume"           class="Action" title="Doorgaan"               onmouseup="if ( checkEnabled( this ) ) CoreClient.resume(); return false;"><span><span>&nbsp;</span></span></a>  
+		</div>
+        <div id="SidebarControlsBottom"> 
+			<div id="emptyRelativePlaceholder"></div>
+            <a href="#" id="actStartRecording"   class="Action" title="Opname starten"         onmouseup="if ( checkEnabled( this ) ) CoreClient.callStartRecording(); return false;"><span class="Call"><span>&nbsp;</span></span></a> 
+            <a href="#" id="actStopRecording"    class="Action" title="Opname stoppen"         onmouseup="if ( checkEnabled( this ) ) CoreClient.callStopRecording(); return false;"><span class="Call"><span>&nbsp;</span></span></a>
+            <a href="#" id="actDisconnectCaller" class="Action" title="Ophangen"               onmouseup="if ( checkEnabled( this ) ) CoreClient.callDisconnect(); return false;"><span class="Call"><span>&nbsp;</span></span></a>  
+            <a href="#" id="actHold"             class="Action" title="In wacht zetten"        onmouseup="if ( checkEnabled( this ) ) CoreClient.callHold(); return false;"><span class="Call"><span>&nbsp;</span></span></a>  
+            <a href="#" id="actUnhold"           class="Action" title="Terugnemen"             onmouseup="if ( checkEnabled( this ) ) CoreClient.callUnhold(); return false;"><span class="Call"><span>&nbsp;</span></span></a>  
+            <a href="#" id="actNext"             class="Action" title="Volgende"               onmouseup="if ( checkEnabled( this ) ) CoreClient.next(); return false;"><span><span>&nbsp;</span></span></a>    
+            <a href="#" id="actBlockCaller"             class="Action" title="Blokkeer"               onmouseup="if ( checkEnabled( this ) ) CoreClient.callBlackList(); return false;"><span class="Call"><span>&nbsp;</span></span></a>
+            <a href="#" id="actTransferToIVRApp" class="Action" title="Doorzetten naar Bel-me-niet-register"   onmouseup="if ( checkEnabled( this ) ) CoreClient.callTransferToIvr( 'bel_me_niet' ); return false;"><span class="Call"><span>&nbsp;</span></span></a>  
+        </div> 
+   </div> 
+ 
+
+<!--    <img id="logo" src="logo.png" alt="DijkConnect" /> --> 
+    
+    <iframe id="Viewport" title="Werkvenster" frameborder="0"></iframe> 
+    
+    <iframe id="Buffer" title="Buffer" frameborder="0"></iframe> 
+    
+    <iframe id="Task" title="Taak" frameborder="0"></iframe> 
+    
+    <div id="Login"> 
+        
+        <div class="wrapper"> 
+        <p id="logo"><img src="https://callcenter.annie.nl/atwt/paginas/logo.png" alt="Annie Connect" /></p> 
+        <p id="links"> 
+            <a href="http://mijn.annie.nl" target="_blank">Naar de medewerkerspagina</a> &mdash;
+            <a href="http://callcenter.annie.nl/pz" target="_blank">Naar het PZ-systeem</a> 
+        </p> 
+        <h1>Aanmelden</h1> 
+        <form id="LoginForm" action="javascript:void(0);" onsubmit="ContactCenter.setPassword( $( 'password' ).value ); ContactCenter.setLicenseeId(43); CoreClient.login( $( 'username' ).value, $( 'password' ).value, 43, 'http://dijkconnect00.colo.bit.nl/agentterminal-web/CoreServer.html' ); return false;"> 
+ 
+            <table title="Aanmeldformulier"> 
+                <tr> 
+                    <td style="vertical-align: top; width: 200px;"> 
+ 
+                        <label for="coreURL" style="visibility: hidden"><em>L</em>icentiehouder</label> 
+                        <select id="coreURL" name="coreURL" style="visibility: hidden;"> 
+                            <option selected="selected" value="http://lg2.dijkconnect.com/agentterminal-web/CoreServer.html">LG2</option> 
+                            <option value="http://dijkconnect03.colo.bit.nl/agentterminal-web/CoreServer.html">dijkconnect03</option> 
+                            <option value="http://dijkconnect.test.iprofs.nl/agentterminal-web/CoreServer.html">iprofs.test</option>  
+                        </select> 
+                    </td> 
+                    <td>&nbsp;</td> 
+                </tr> 
+                <tr style="visibility: hidden"> 
+                    <th><label for="licenseeId" class="Required" accesskey="L"><em>L</em>icentiehouder</label></th> 
+                     <td> 
+                        <select id="licenseeId" name="licenseeId" class="Required" title="Selecteer hier je licentiehouder" onchange="$('coreURL').selectedIndex = $('licenseeId').selectedIndex"> 
+                            <option selected="selected" value="0">LG2 (0) </option> 
+                            <option value="0">dijkconnect03 (0) </option> 
+                            <option value="0">iprofs.test (0)</option>
+                        </select> 
+                     </td> 
+                </tr> 
+                <tr> 
+                    <th><label for="username" class="Required"><em>N</em>aam</label></th> 
+                    <td><input id="username" name="username" accesskey="N" class="Required" title="Vul hier je gebruikersnaam in" /></td> 
+                </tr> 
+                <tr> 
+                    <th><label for="password" class="Required">TIN-<em>C</em>ode</label></th> 
+                    <td><input id="password" name="password" type="password" accesskey="C" class="Required" title="Vul hier je TIN-code in" /></td> 
+                </tr> 
+                <tr> 
+                    <th><label for="phone"><em>T</em>elefoonnummer</label></th> 
+                    <td><input id="phone" name="phone" accesskey="T" title="Vul hier je telefoonnummer in als dit afwijkt van je gebruikelijke telefoonnummer" /></td> 
+                </tr> 
+                <tr> 
+                    <th>&nbsp;</th> 
+                    <td><label for="remember" title="Vink deze optie aan om je aanmeldgegevens (exclusief TIN-code) op te slaan op deze computer" style="text-align: left; width: 200px; line-height: 20px;"><input id="remember" name="remember" type="checkbox" style="width: 16px; float: left; margin-right: 10px;" accesskey="S" /><em>S</em>la deze gegevens op</label></td> 
+                </tr> 
+                <tr> 
+                    <th>&nbsp;</th> 
+                    <td >  
+                        <a href="javascript:void(0);" title="Aanmelden [ENTER]" class="Action" id="actLogin" onclick="$('LoginForm').onsubmit(); return false;" accesskey="A"><span style="height: 32px; line-height: 32px;"><em>A</em>anmelden</span></a> 
+                    </td> 
+                </tr> 
+                <tr> 
+                    <td> 
+                    </td> 
+                    <td> 
+                    </td> 
+                </tr> 
+            </table> 
+        </form> 
+        </div> 
+    </div> 
+    <div id="Loading"> 
+        <img alt="Bezig met laden..." src="load.gif" /><span id="Progress">Bezig met laden...</span> 
+        <a href="#" style="position: absolute; z-index: 100000000000000; width: 24px; height: 24px; text-align: center; line-height: 24px; padding: 0; border: 0; visibility: visible; display: block; top: 2px; right: 4px;; color: gray;" onmouseup="ContactCenter.transitionCancel(); return false;" class="Action">x</a><br/> 
+    </div> 
+    <div id="Error">&nbsp;</div> 
+    <div id="Console">&nbsp;</div>
+	<script type="text/javascript" src="easyxdm.js"></script>
+	<script type="text/javascript" src="System.js"></script>
+	<script type="text/javascript" src="CoreShared.js"></script>
+	<script type="text/javascript" src="CoreClient.js"></script>
+	<script type="text/javascript" src="ContactCenter.js"></script>
+	<script type="text/javascript" src="ContactCenterAutoAgent.js"></script>
+    <script type="text/javascript">//<![CDATA[
+    var activeAction = null;
+    
+    function init()
+    {
+        
+        if (arguments.callee.done) 
+            return;  
+        arguments.callee.done = true;  
+ 
+        var username = System.getCookie( "username" );
+        if ( username )
+            $("username").value = username;
+ 
+        $("username").setAttribute( "autocomplete", "off" );
+        $("password").setAttribute( "autocomplete", "off" );
+        $("phone").setAttribute( "autocomplete", "off" );
+        
+        var remember = System.getCookie( "remember" );
+        if ( remember )
+            $("remember").checked = remember;
+ 
+        var lidx = System.getCookie( "lidx" );
+        if ( lidx )
+        {
+            $("licenseeId").selectedIndex = lidx;
+            $("coreURL").selectedIndex = lidx;
+        }
+ 
+        var phone = System.getCookie( "phone" );
+        if ( phone )
+            $("phone").value = phone;
+ 
+        //System.monitorZoom();
+        var nodes       = [];
+        nodes.login     = $("Login");
+        nodes.console   = $("Console");
+        nodes.loading   = $("Loading");
+        nodes.error     = $("Error");
+ 
+        window.onresize = function()
+        {
+            var cw = document.body.clientWidth;
+            var w = ( cw - 61 ) + "px";
+            var v = $("Viewport");
+ 
+            if ( v )
+                v.style.width = w;
+                
+            nodes.login.style.width = w;
+            nodes.console.style.width = w;
+            
+            w = ( cw - 91 - 20 ) + "px";
+            nodes.error.style.width = w;
+            nodes.loading.style.width = w;
+        }
+        window.onresize();
+        nodes.console.style.display = "block";
+        Console.create();
+        Console.toggle();
+        ContactCenter.create();
+        ContactCenter.transitionFinish( AS_START );
+ 
+        if ( !ie )
+        {
+            ContactCenter.addErrorMessage(914, "not-IE");
+            $("LoginForm").onsubmit = null;
+            $("actLogin").onclick = null;
+            System.setClassName( $("actLogin"), "Action Disabled" );
+        }
+ 
+        document.body.oncontextmenu = function() { return false }
+        $("Sidebar").onmousedown = function( evt )
+        {
+            if ( !evt ) 
+                evt = window.event;
+            
+            var elem = null;
+            
+            if ( evt && evt.srcElement )
+                elem = evt.srcElement;
+            else if ( evt.target )
+                elem = evt.target;
+                
+            if ( elem.nodeName != "A" &&
+                 elem.nodeName != "SPAN" &&
+                 elem.nodeName != "INPUT" &&
+                 elem.nodeName != "SELECT" &&
+                 elem.nodeName != "TEXTAREA" )
+                 return false;
+            
+            return true;
+        };
+        $("Login").onmousedown = $("Sidebar").onmousedown;
+        $("Loading").onmousedown = $("Sidebar").onmousedown;
+        $("Error").onmousedown = $("Sidebar").onmousedown;
+        
+        window.onkeydown = function( evt )
+        {
+            if ( !evt )
+                evt = window.event;
+            
+            var key = evt.which || evt.keyCode;
+            
+            if ( key == 19 )
+            {
+                Console.toggle();        
+                evt.returnValue = false;
+                evt.cancelBubble= true;
+                evt.stopPropagation = true;
+                return false;
+            }
+            else if ( key == 13 ) // RETURN
+            {
+                var state = ContactCenter.getState();
+                switch ( state )
+                {
+                    case AS_START:
+                        if ( $("LoginForm").onsubmit )
+                          $("LoginForm").onsubmit();
+                        break;
+                    case AS_STOPPED:
+                    case AS_WELCOME:
+                        CoreClient.connect( document.getElementById( 'phone' ).value);
+                        break;
+                }
+                return false;
+            }
+            else if ( key == 27 ) // ESC
+            {
+                var state = ContactCenter.getState();
+                switch ( state )
+                {
+                    case AS_STOPPED:
+                    case AS_WELCOME:
+                        CoreClient.logout();
+                        break;
+                    case AS_DIALING:
+                        CoreClient.disconnect();
+                        break;
+                }
+                return false;
+            }
+            return true;
+        }
+        window.onmouseup = function( event )
+        {
+                if ( activeAction != null )
+                    System.setClassName( activeAction, "Action" );                        
+                activeAction = null;
+                return false;
+        }
+        if ( ie )
+        {
+            document.body.onkeydown = window.onkeydown;
+            document.body.onmouseup = window.onmouseup;
+            window.onmouseup = null;
+            window.onkeydown = null;
+        }
+        var actions = document.body.getElementsByTagName( "a" );
+        var len = actions.length;
+        for ( var i = 0; i < len; i++ )
+        {
+            
+            
+            var span =  actions.item( i ).getElementsByTagName( "span" ).item( 0 );
+            if ( span )
+            {
+ 
+                span.parentNode.ondragend = function( evt )
+                {
+                    if ( activeAction != null )
+                        System.setClassName( activeAction, "Action" );                        
+                    activeAction = null;
+                    return false;
+                }
+                
+                span.parentNode.ondragstart = function( evt )
+                {
+                    return false;
+                }
+                span.onclick = function( evt ) 
+                {
+                    var className = System.getClassName( this.parentNode );
+                        
+                    if ( className == "Action Disabled" || className == "Action Active Disabled" )
+                        return false; 
+                    
+                    return true;
+                }
+                
+                span.onmousedown = function() 
+                { 
+                    
+                    var className = System.getClassName( this.parentNode );
+                        
+                    if ( className == "Action Disabled" || className == "Action Active Disabled" )
+                        return false; 
+ 
+                    if ( activeAction != null )
+                        System.setClassName( this.parentNode, "Action" );
+                        
+                    System.setClassName( this.parentNode, "Action Active" );                        
+ 
+                    activeAction = this.parentNode;
+ 
+                    return true;
+                }
+                span.onmouseup = function() 
+                { 
+                    var className = System.getClassName( this.parentNode );
+ 
+                    if ( className == "Action Disabled" || className == "Action Active Disabled" )
+                        return false; 
+ 
+                    System.setClassName( this.parentNode, "Action" );                        
+ 
+                    return true;
+                }
+            }       
+        } 
+     
+     }
+    if (document.addEventListener) 
+        document.addEventListener('DOMContentLoaded', init, false);
+    (
+        function() 
+        {  
+            /*@cc_on  
+            try 
+            {    
+                document.body.doScroll('up');    
+                return init();  
+            } catch(e) {}  
+            /*@if (false) @*/  
+            if (/loaded|complete/.test(document.readyState)) 
+                return init();  
+            /*@end @*/  
+            if (!init.done) 
+                setTimeout(arguments.callee, 30);
+        }
+    )();
+    if (window.addEventListener) 
+        window.addEventListener('load', init, false);
+    else if (window.attachEvent) 
+        window.attachEvent('onload', init);
+        
+    //]]></script> 
+    </body> 
+
+</html>
