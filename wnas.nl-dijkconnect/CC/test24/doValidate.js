@@ -410,7 +410,7 @@ function doValidate(what) {
 						try {
   			      eval (self.onvalid);
   			    } catch(r) {
-  			    	alert(r.description + ' in veld ' + self.name)
+  			    	alert(r.description + ' in veld ' + self.name);
   			    }
 //					  firstone = updateForm(which);
   			  }
@@ -420,7 +420,7 @@ function doValidate(what) {
 						try {
   					  eval (self.oninvalid);
   			    } catch(r) {
-  			    	alert(r.description + ' in veld ' + self.name)
+  			    	alert(r.description + ' in veld ' + self.name);
   			    }
 //					  firstone = updateForm(which);
 					}
