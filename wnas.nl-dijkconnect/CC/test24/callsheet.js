@@ -11,6 +11,42 @@ function DummyCommandSetFocus()
   return;
 }
 
+/*
+	improvement
+
+
+	if (document.callsheet['field[Zender]'].value.length==0){
+      alert("Media is een verplicht veld.");
+      return false;
+	}
+	
+	// should get messages and fields from an object literal
+	
+	checkAndReportList : {
+		zender : {
+			field : 'Zender',
+			msg : 'Media is een verplicht veld.'
+		},
+		achternaam : {
+			field : 'Achternaam',
+			msg : 'Achternaam is een verplicht veld.'
+		}
+	}
+	
+	var a = ccheckAndReportList;
+	for( var i in a ){
+		checkAndReport(a[i].show,a[i].hide,a[i]);
+	};
+	
+	checkAndReport('Zender','Media is een verplicht veld.');
+	
+	var checkAndReport = function(field,msg){
+		if (document.callsheet['field['+field+']'].value.length==0){
+	      alert( msg );
+	      return false;
+		}
+	}
+*/
 function CheckRequiredValues()
 {
   if (document.callsheet['field[Resultaat]'].selectedIndex==0)
