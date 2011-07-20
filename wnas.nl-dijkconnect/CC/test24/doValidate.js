@@ -1132,9 +1132,20 @@ function isRadioCheckedMail(rbName) {
 	return false;
 }
 
+
+function addEvent( obj, type, fn ) {
+  if ( obj.attachEvent ) {
+    obj['e'+type+fn] = fn;
+    obj[type+fn] = function(){obj['e'+type+fn]( window.event );}
+    obj.attachEvent( 'on'+type, obj[type+fn] );
+  } else
+    obj.addEventListener( type, fn, false );
+}
+
+addEvent( document, 'onload', firstFocus )
 //=== MAIN ===
 // Fire up form handler
-window.attachEvent('onload',firstFocus);
+//window.attachEvent('onload', firstFocus);
 
 
 

@@ -3,16 +3,16 @@
 <HEAD>
   <META NAME='author' CONTENT='©2000-2006 Annie Connect. All rights reserved.'>
   <TITLE>Annie Connect: test24 (terug bellen)  </TITLE>
-  <SCRIPT TYPE="text/javascript" SRC="/scripts/jquery-1.6.1.js" LANGUAGE="javascript"></SCRIPT>
-  <SCRIPT TYPE="text/javascript" SRC="callsheet.js" LANGUAGE="javascript"></SCRIPT>
-  <SCRIPT TYPE="text/javascript" SRC="doValidate.js" LANGUAGE="javascript"></SCRIPT>
-  <script type="text/javascript" src="/atwt/CallsheetServer.js"></script>
+  <SCRIPT SRC="../../scripts/jquery-1.6.1.js"></SCRIPT>
+  <SCRIPT SRC="callsheet.js"></SCRIPT>
+  <SCRIPT SRC="doValidate.js"></SCRIPT>
+  <script src="../../atwt/CallsheetServer.js"></script>
 		<script>
 		niet_naar_bmn_vrs_bij_resultaten = "AFE";
 		$(document).ready(function  () {CallsheetServer.initialize();});
 		$(document).unload(function () {CallsheetServer.finalize();});
 		</script>
-<SCRIPT TYPE="text/javascript">
+<SCRIPT >
 <!--
 function hasClass(ele,cls) {
   return ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
@@ -41,79 +41,83 @@ function clearFocusLabel(ID){
 //-->
 </SCRIPT>
 
+<LINK REL="stylesheet" HREF="callsheet.css" TYPE="text/css">
+
 </HEAD>
 
-<LINK REL="stylesheet" HREF="callsheet.css" TYPE="text/css">
-<BODY BGCOLOR="#E8F0F5">
-<P>
-  <B>Annie Connect: test24 (terug bellen)<HR SIZE="1">
-<FORM ACTION="callsheet.html" AUTOCOMPLETE="off" METHOD="post" NAME="callsheet">
-<INPUT TYPE="HIDDEN" NAME="annie" VALUE="23314">
-<INPUT TYPE="HIDDEN" NAME="sleutel" VALUE="">
-<INPUT TYPE="HIDDEN" NAME="csmode" VALUE="terugbel">
-<INPUT TYPE="HIDDEN" NAME="field[Annie]" VALUE="23314">
-<INPUT TYPE="HIDDEN" NAME="field[CSMode]" VALUE="terugbel">
-<INPUT TYPE="HIDDEN" NAME="field[Callcount]" VALUE="2">
-<INPUT TYPE="HIDDEN" NAME="field[Datum]" VALUE="2011-06-22">
-<INPUT TYPE="HIDDEN" NAME="field[Tijd]" VALUE="17:23:49">
-<INPUT TYPE="HIDDEN" NAME="field[Belstempel]" VALUE="2011-06-22 17:23:49">
-<INPUT TYPE="HIDDEN" NAME="field[ID]" VALUE="13">
-<INPUT TYPE="HIDDEN" NAME="field[Servicenummer]" VALUE="">
-<INPUT TYPE="HIDDEN" NAME="field[Cli]" VALUE="">
-<INPUT TYPE="HIDDEN" NAME="field[Cli]" VALUE="">
-<INPUT TYPE="HIDDEN" NAME="field[ContactID]" VALUE="1060597672">
-<INPUT TYPE="HIDDEN" NAME="submitURL" VALUE="">
-<TABLE BORDER="0" BGCOLOR="white">
+<BODY>
+	<article>
+		<h1>Annie Connect: test24 (terug bellen)</h1>
+		
+			<FORM ACTION="callsheet.html" AUTOCOMPLETE="off" METHOD="post" NAME="callsheet">
+			<INPUT TYPE="HIDDEN" NAME="annie" VALUE="23314">
+			<INPUT TYPE="HIDDEN" NAME="sleutel" VALUE="">
+			<INPUT TYPE="HIDDEN" NAME="csmode" VALUE="terugbel">
+			<INPUT TYPE="HIDDEN" NAME="field[Annie]" VALUE="23314">
+			<INPUT TYPE="HIDDEN" NAME="field[CSMode]" VALUE="terugbel">
+			<INPUT TYPE="HIDDEN" NAME="field[Callcount]" VALUE="2">
+			<INPUT TYPE="HIDDEN" NAME="field[Datum]" VALUE="2011-06-22">
+			<INPUT TYPE="HIDDEN" NAME="field[Tijd]" VALUE="17:23:49">
+			<INPUT TYPE="HIDDEN" NAME="field[Belstempel]" VALUE="2011-06-22 17:23:49">
+			<INPUT TYPE="HIDDEN" NAME="field[ID]" VALUE="13">
+			<INPUT TYPE="HIDDEN" NAME="field[Servicenummer]" VALUE="">
+			<INPUT TYPE="HIDDEN" NAME="field[Cli]" VALUE="">
+			<INPUT TYPE="HIDDEN" NAME="field[Cli]" VALUE="">
+			<INPUT TYPE="HIDDEN" NAME="field[ContactID]" VALUE="1060597672">
+			<INPUT TYPE="HIDDEN" NAME="submitURL" VALUE="">
+	
+	
+			<!--
+			Direkt Hieronder HIDDEN fields opgeven indien deze niet in het form zichtbaar moeten zijn  
+			maar wel terecht moeten komen in de stats tabel.
+			Let erop dat in callcenter.php ook de standaard velden als HIDDEN worden meegegeven en let op dat 
+			de hoofd en kleine letters van de array overeenkomen met die van de database!
+			bv: <INPUT TYPE="HIDDEN" NAME="field[Bron]" VALUE="A">
+			De Terugbeldatum en terugbeltijd moeten in HIDDEN als er geen B in de resultaten zit omdat ze anders in de dovalidate
+			gedisabled of enabled worden en er niet zijn.
+			-->
+			<INPUT TYPE="HIDDEN" NAME="field[Bron]" VALUE="A">
+			<INPUT TYPE="hidden" NAME="kwg" value=""> <!-- Klant weigert gesprek. (resultaat X en opmerking: klant weigert gesprek -->
+			<INPUT TYPE="hidden" NAME="vma" value=""> <!-- Voicemail aangetroffen -->
+			<INPUT TYPE="hidden" NAME="zte" value=""> <!-- Klant Zit Te Eten -->
+		
+<TABLE>
 
 
-<!--
-Direkt Hieronder HIDDEN fields opgeven indien deze niet in het form zichtbaar moeten zijn  
-maar wel terecht moeten komen in de stats tabel.
-Let erop dat in callcenter.php ook de standaard velden als HIDDEN worden meegegeven en let op dat 
-de hoofd en kleine letters van de array overeenkomen met die van de database!
-bv: <INPUT TYPE="HIDDEN" NAME="field[Bron]" VALUE="A">
-De Terugbeldatum en terugbeltijd moeten in HIDDEN als er geen B in de resultaten zit omdat ze anders in de dovalidate
-gedisabled of enabled worden en er niet zijn.
--->
-<INPUT TYPE="HIDDEN" NAME="field[Bron]" VALUE="A">
-<INPUT TYPE="hidden" NAME="kwg" value=""> <!-- Klant weigert gesprek. (resultaat X en opmerking: klant weigert gesprek -->
-<INPUT TYPE="hidden" NAME="vma" value=""> <!-- Voicemail aangetroffen -->
-<INPUT TYPE="hidden" NAME="zte" value=""> <!-- Klant Zit Te Eten -->
+
 
 <TR><TD CLASS="mith" COLSPAN="3">
 <input type=button name="knop_kwg" id="knop_kwg" value="Klant weigert gesprek">
 <input type=button name="vmaonzin" value="Voicemail aangetroffen" onclick="document.callsheet.vma.value='yes'; CCallsheetServer.beforeSubmit();  allsheetServer.beforeSubmit();  CallsheetServer.beforeSubmit(); document.callsheet.submit()">
 </TD></TR>
-<TR><TD CLASS="mith" COLSPAN="3">21-06-2011  15:59 : Niet opgenomen<br>22-06-2011  17:20 : Terugbelafspraak gemaakt voor 22-06-2011  17:15 (opmerking : Test)<br>22-06-2011  17:23 : Terugbelafspraak gemaakt voor 22-06-2011  17:20 (opmerking : Test)<br></TD></TR><TR><TD CLASS="mith" COLSPAN="3">EXTRA BMNR CONTROLE</TD></TR>CallsheetServer.beforeSubmit();document.callsheet.submit()">
-</TD></TR>
+<TR><TD CLASS="mith" COLSPAN="3">21-06-2011  15:59 : Niet opgenomen<br>22-06-2011  17:20 : Terugbelafspraak gemaakt voor 22-06-2011  17:15 (opmerking : Test)<br>22-06-2011  17:23 : Terugbelafspraak gemaakt voor 22-06-2011  17:20 (opmerking : Test)<br></TD></TR><TR><TD CLASS="mith" COLSPAN="3">EXTRA BMNR CONTROLE</TD></TR>
 <TR><TD CLASS="mith" COLSPAN="3">21-06-2011  15:59 : Niet opgenomen<br>22-06-2011  17:20 : Terugbelafspraak gemaakt voor 22-06-2011  17:15 (opmerking : Test)<br>22-06-2011  17:23 : Terugbelafspraak gemaakt voor 22-06-2011  17:20 (opmerking : Test)<br></TD></TR><TR><TD CLASS="mith" COLSPAN="3">EXTRA BMNR CONTROLE</TD></TR>
 
   <TR>
   <TD CLASS=mitc3>klant zegt in BMNR te staan</TD>
   <TD CLASS=mitc1><I>&nbsp;</I></TD>
   <TD CLASS=mitc4>
-  <INPUT TYPE=radio NAME="field[bmnr]" VALUE="JA" validate="isRadioChecked(self)" label="klant zegt in BMNR te staan" 2 >JA<BR>
-<INPUT TYPE=radio NAME="field[bmnr]" VALUE="NEE"   2 CHECKED>NEE<BR>
+  <INPUT TYPE=radio NAME="field[bmnr]" VALUE="JA" validate="isRadioChecked(self)" label="klant zegt in BMNR te staan">JA<BR>
+<INPUT TYPE=radio NAME="field[bmnr]" VALUE="NEE" CHECKED>NEE<BR>
 </TD></TR>
 
 <TR>
-<TD colspan=3 bgcolor='#ffffaa'>
-<a href="" target="_blank"><img src="./plaatje" hspace=10 vspace=10 align=right></a> 
+<TD colspan=3>
 
-<font color=blue><BR>
-<BR>
+<strong>
 Goedemiddag, u spreekt met Jan Beuker van Nationale Vereniging de Zonnebloem. <BR>
-Ik ben op zoek naar de heer of mevrouw  , komt het even gelegen?<BR>
-<BR>
-<b><u></font><font color=black>[Belangrijk in je gesprekken:]</font><font color=blue></b></u><BR>
-<BR>
-<b> De Zonnebloem </b><BR>
-- …Èn van de grootste vrijwilligersorganisaties van Nederland (ruim 40.000 vrijwilligers)<BR>
-- Bestaat al ruim 60 jaar<BR>
-- Speciale jongeren afdeling LinQ<BR>
-- jaarlijks 1.3 miljoen huisbezoeken<BR>
-- dagactiviteiten zoals; winkelochtenden, huifkartochten, ballonvaarten, theatertournee, rondvaartboot en nog veel meer!<BR>
-</font><font color=black>[kijk voor actuele informatie op www.zonnebloem.nl]</font><font color=blue><BR>
+Ik ben op zoek naar de heer of mevrouw  , komt het even gelegen?</strong><BR>
+<p><strong>[Belangrijk in je gesprekken:]</strong></p>
+
+<h2> De Zonnebloem </h2>
+<ul>
+	<li>…Èn van de grootste vrijwilligersorganisaties van Nederland (ruim 40.000 vrijwilligers).</li>
+	<li>Bestaat al ruim 60 jaar</li>
+	<li>Speciale jongeren afdeling LinQ</li>
+	<li>jaarlijks 1.3 miljoen huisbezoeken</li>
+	<li>dagactiviteiten zoals; winkelochtenden, huifkartochten, ballonvaarten, theatertournee, rondvaartboot en nog veel meer!</li>
+</ul>
+<font color=black>[kijk voor actuele informatie op www.zonnebloem.nl]</font><font color=blue><BR>
 <BR>
 <b> Belang </b><BR>
 - Veel meer aanvragen dan mogelijkheden, dus veel mensen teleurstellen<BR>
@@ -192,7 +196,7 @@ Ik ben op zoek naar de heer of mevrouw  , komt het even gelegen?<BR>
 
 <TR>
 <TD colspan=3 bgcolor='#ffffaa'>
-<font color=blue> <b> LET OP: controleer de gegevens altijd goed als de persoon lid wordt!]</font><font color=blue></b></font>
+ LET OP: controleer de gegevens altijd goed als de persoon lid wordt!]
 </TD>
 </TR>
 
@@ -309,8 +313,8 @@ Ik ben op zoek naar de heer of mevrouw  , komt het even gelegen?<BR>
 <TD colspan=3 bgcolor='#ffffaa'>
 <font color=blue><BR>
 <BR>
-<i><b> Indien de persoon zich wil aanmelden als gast of vrijwilliger dan kan je de persoon doorverwijzen <BR>
-naar het dienstencentrum van de Zonnebloem 076 56 46 464 of www.zonnebloem.nl</i></b><BR>
+ Indien de persoon zich wil aanmelden als gast of vrijwilliger dan kan je de persoon doorverwijzen <BR>
+naar het dienstencentrum van de Zonnebloem 076 56 46 464 of www.zonnebloem.nl<BR>
 <BR>
 Voor de volledigheid zou ik graag alle afspraken nog met u doornemen.<BR>
 <BR>
@@ -323,15 +327,12 @@ Dan heb ik alles genoteerd meneer / mevrouw. Ik wil u hartelijk danken voor uw s
 U ontvangt van ons zo spoedig mogelijk de bevestigingsbrief en ik wens u nog een hele fijne dag/avond! </font>
 </TD>
 </TR>
-<!--------------------------------------------------------------------------------------------------------->
-<!---------------------------------------------------- callsheet footer ----------------------------------->
-<!--------------------------------------------------------------------------------------------------------->
 
 <TR>
   <TD CLASS="mith" COLSPAN="3">Gespreksgegevens</TD>
 </TR>
 <TR>
-  <TD CLASS="mitc3" COLSPAN="2">Resultaat</td></TD>
+  <TD CLASS="mitc3" COLSPAN="2">Resultaat</td>
   <TD CLASS="mitc4">
     <INPUT TYPE="radio" VALUE="C" NAME="field[Resultaat]" CLASS="mii" ONCHANGE="doValidate(this.form)" label="Resultaat" validate="checkResult(self)" onvalid="resultHandler(self)"> Gereed, verkoop<BR>
     <INPUT TYPE="radio" VALUE="N" NAME="field[Resultaat]" CLASS="mii" label="Resultaat" > Gereed, donateur<BR>
@@ -346,11 +347,11 @@ U ontvangt van ons zo spoedig mogelijk de bevestigingsbrief en ik wens u nog een
 </TR>
 
 <TR>
-  <TD CLASS="mitc3" COLSPAN="2">Terugbeldatum</td></TD>
+  <TD CLASS="mitc3" COLSPAN="2">Terugbeldatum</TD>
     <TD CLASS="mitc4"><INPUT ID="JF1234" TYPE="text" MAXLENGTH="10" SIZE="10" VALUE="22-07-2011" NAME="field[Terugbeldatum]" Label="Terugbeldatum" validate="/^22-06-2011|23-06-2011|24-06-2011|25-06-2011|27-06-2011|28-06-2011|29-06-2011|30-06-2011|01-07-2011|02-07-2011|04-07-2011|05-07-2011|06-07-2011|07-07-2011|08-07-2011|09-07-2011|11-07-2011|12-07-2011|13-07-2011|14-07-2011|15-07-2011|16-07-2011|18-07-2011|19-07-2011|20-07-2011|21-07-2011|22-07-2011|23-07-2011|25-07-2011|26-07-2011|27-07-2011|28-07-2011|29-07-2011|30-07-2011|01-08-2011|02-08-2011|03-08-2011|04-08-2011|05-08-2011|06-08-2011|08-08-2011|09-08-2011|10-08-2011|11-08-2011|12-08-2011|13-08-2011|15-08-2011|16-08-2011|17-08-2011|18-08-2011|19-08-2011|20-08-2011|22-08-2011/" onFocus="setFocusLabel('JF1234')" onBlur="clearFocusLabel('JF1234')" CLASS="mii" VALUE="" picture="99-99-9999" ACCESSKEY="B">(DD-MM-YYYY) niet later dan 22-08-2011</TD>
 </TR>
 <TR>
-  <TD CLASS="mitc3" COLSPAN="2">Terugbeltijd</td></TD>
+  <TD CLASS="mitc3" COLSPAN="2">Terugbeltijd</TD>
   <TD CLASS="mitc4"><INPUT ID="JF1235" TYPE="text" MAXLENGTH="5" SIZE="5" NAME="field[Terugbeltijd]" Label="Terugbeltijd" validate="/^((09|10|11|12|13|14|15|16|17|18|19|20):[0-5]\d)|(21:00)$/" CLASS="mii" VALUE="" picture="99:99" onFocus="setFocusLabel('JF1235')" onBlur="clearFocusLabel('JF1235')">(HH:MM) tussen 09:00 en 21:00</TD>
 </TR>
 
@@ -363,12 +364,7 @@ U ontvangt van ons zo spoedig mogelijk de bevestigingsbrief en ik wens u nog een
 
 
 
-<script language="JavaScript" type="text/javascript">
-<!--
-// zet boolean is Bel me niet register
-var bIsBMNR = true;
-// -->
-</script>
+
 
 <TR>
 <TD colspan=3 bgcolor="#ffffaa" id="btekst_vak">
@@ -407,8 +403,13 @@ Prettige dag.<br>
 
 
 
-<!--======================================================================================================-->
 </TABLE>
+<script>
+<!--
+// zet boolean is Bel me niet register
+var bIsBMNR = true;
+// -->
+</script>
 </FORM>
 </BODY>
 </HTML>
