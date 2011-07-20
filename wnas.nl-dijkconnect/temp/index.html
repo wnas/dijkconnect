@@ -16,7 +16,7 @@
 		      return false;
 			}
 		*/
-		var dco = function(){
+	/*	var dco = function(){
 			var conf = {
 				checkAndReportList : {
 					zender : {
@@ -44,9 +44,39 @@
 				init:init
 			};
 		}();
-		dco.init();
+		dco.init();*/
 		// should get messages and fields from an object literal
+		/*
+			revealing module pattern
 
+			gewoon een idee om je code wat leuker te structureren.
+
+		*/
+		// first up, create a namespace.
+		// you DON'T wanna go into the global namespace too much.
+		var DCO = function(){
+			// put all of your commonly used var's in this object literal.
+			// these var's are private
+			var conf = {
+				// foo : bar
+				bla : 'zwa'
+			},	
+				// set the helper functions in here...
+				// these functions are priveledged
+				helpers = {
+				foo : function(arg){ 
+					console.log(arg)
+					}
+			},	
+				// stuff to return to the global namespace
+				init = function(){
+				helpers.foo(conf.bla)	
+			};
+			return {
+				init:init
+			}
+		}();
+		DCO.init();
 	/*
 
 			var a = conf.checkAndReportList;

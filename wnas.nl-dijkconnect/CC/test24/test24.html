@@ -1,3 +1,4 @@
+<!DOCTYPE HTML>
 <HTML>
 <HEAD>
   <META NAME='author' CONTENT='©2000-2006 Annie Connect. All rights reserved.'>
@@ -30,12 +31,12 @@ function removeClass(ele,cls) {
 
 function setFocusLabel(ID)
 { addClass(document.getElementById(ID), "hasFocus");
-  console.log('Focus set to ID', ID);
+  //console.log('Focus set to ID', ID);
 }
 
-function clearFocusLabel(ID)
-{ removeClass(document.getElementById(ID), "hasFocus");
-  console.log('Focus removed from ID', ID);
+function clearFocusLabel(ID){ 
+	removeClass(document.getElementById(ID), "hasFocus");
+  //console.log('Focus removed from ID', ID);
 }
 //-->
 </SCRIPT>
@@ -78,10 +79,6 @@ gedisabled of enabled worden en er niet zijn.
 <INPUT TYPE="hidden" NAME="kwg" value=""> <!-- Klant weigert gesprek. (resultaat X en opmerking: klant weigert gesprek -->
 <INPUT TYPE="hidden" NAME="vma" value=""> <!-- Voicemail aangetroffen -->
 <INPUT TYPE="hidden" NAME="zte" value=""> <!-- Klant Zit Te Eten -->
-
-
-
-
 
 <TR><TD CLASS="mith" COLSPAN="3">
 <input type=button name="knop_kwg" id="knop_kwg" value="Klant weigert gesprek">

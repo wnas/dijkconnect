@@ -356,14 +356,20 @@ function resultHandler()
 
 function EnableValidateAll()
 {
-	$(':input').each(function (i, element) { $(element).data('always_valid', false); });
+	returnValid(false);
+	//$(':input').each(function (i, element) { $(element).data('always_valid', false); });
 }
 
 function DisableValidateAll()
 {
-	$(':input').each(function (i, element) { $(element).data('always_valid', true); });
+	returnValid(true);
+	//$(':input').each(function (i, element) { $(element).data('always_valid', true); });
 }
 
+// enhancement...
+var returnValid = function(val){
+	$(':input').each(function (i, element) { $(element).data('always_valid', val); });
+};
 function EnableValidate()
 {
 	$.each(EnableValidate.arguments, function (i, element) { $('[name="field['+element+']"]').data('always_valid', false); });
@@ -607,7 +613,7 @@ function checkBedrag()
 {
 	var periode = getFieldVal('Periode');
 	if (periode == false) return false;
-	var bedrag  = getFieldVal('Bedrag')
+	var bedrag  = getFieldVal('Bedrag');
 	if (periode == 'F' && bedrag == '') return true;
 	if (periode == 'F' && bedrag !== '') return false;
 	if (bedrag == false) return false;
@@ -665,3 +671,32 @@ function periodeHandler()
 	}
 	doValidate();
 }
+
+/*
+	revealing module pattern
+	
+	gewoon een idee om je code wat leuker te structureren.
+	
+*/
+// first up, create a namespace.
+// you DON'T wanna go into the global namespace too much.
+var DCO = function(){
+	// put all of your commonly used var's in this object literal.
+	// these var's are private
+	var conf = {
+		// foo : bar
+		bla : 'zwa'
+	},	
+		// set the helper functions in here...
+		// these functions are priveledged
+		helpers = {
+		foo : function(arg){ 
+			console.log(arg)
+			}
+	},	
+		// stuff to return to the global namespace
+		init = function(){
+		helpers.foo(conf.bla)	
+	}
+}();
+DCO.init();
