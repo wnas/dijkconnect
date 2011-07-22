@@ -5,3 +5,6 @@ dijkconnect00
 naam			-	DCO_test9
 TIN-code		-	test
 Telefoonnummer	-	10001113
+
+
+callerWindow = ("postMessage" in frame.contentWindow) ? frame.contentWindow : frame.contentWindow.document;
