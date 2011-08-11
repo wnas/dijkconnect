@@ -36,7 +36,7 @@ function stuurknop(functie,variable,agent) {
 		var httpObj = new XMLHttpRequest();
 	} else {
 		if (window.ActiveXObject) {
-			var httpObj = new ActiveXObject("Microsoft.XMLHTTP");
+			httpObj = new ActiveXObject("Microsoft.XMLHTTP");
 		}
 	}
 
@@ -312,7 +312,22 @@ function elfproef(veld){
 }
 
 function firstFocus() {
-    var TForm = document.forms[0]; /* We hebben maar 1 formulier */
+    //var TForm = document.forms[0]; /* We hebben maar 1 formulier */
+	/*
+		check to see how many forms we have.
+		if there are more than one, then we didn't destroy the old one.
+		if so, destroy the older one. and set focus on the new one.
+		
+		is there a way to flag the new one?
+	*/
+	var TForm = document.forms;
+//	alert(TForm);
+	
+	var len = TForm.length;
+	alert(TForm[len-1].getAttribute('action'))
+	for ( var i = -1; ++i < len;){
+		
+	}
     TForm.attachEvent('onsubmit',doValidate);
     for (var i=0;i<TForm.length;i++) {
         switch (TForm.elements[i].dbtype) {
@@ -568,18 +583,18 @@ function KeyboardHandler() {
 	var fields = event.srcElement.form.elements.length;
   var picFormatters = "09aAxX@_";
   var key = event.keyCode;
-  var char = String.fromCharCode(key);
+  var chr = String.fromCharCode(key);
 	var direction = 0;
 	if (elmnt.allowed) {
-		  alert(char + " match against " + elmnt.allowed + " = " + char.match(eval(elmnt.allowed)));
-		  if ( char.match(eval(elmnt.allowed)) ) {
+		  alert(chr + " match against " + elmnt.allowed + " = " + chr.match(eval(elmnt.allowed)));
+		  if ( chr.match(eval(elmnt.allowed)) ) {
 		  } else {
 		  	event.returnValue = false;
 		  	return false;
 		  }
 	}
 	if (elmnt.denied) {
-		  if ( char.match(eval(elmnt.denied)) ) {
+		  if ( chr.match(eval(elmnt.denied)) ) {
 		  	event.returnValue = false;
 		  	return false;
 		  }
@@ -1164,6 +1179,8 @@ $(document).ready(function() {
 	location.href += "#bottom";
     //    $("#jadus").focus();
     });
+
+	firstFocus();
 
 });
 
