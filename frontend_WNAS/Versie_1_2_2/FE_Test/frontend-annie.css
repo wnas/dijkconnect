@@ -1,0 +1,10 @@
+/* Maven artifact DCO Core - AgentTerminal service version 1.2.2 */
+
+.Action#actStartRecording,
+.Action#actStopRecording,
+.Action#actMute,
+.Action#actUnmute
+{
+  visibility: hidden;
+}
+

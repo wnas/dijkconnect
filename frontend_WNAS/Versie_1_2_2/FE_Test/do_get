@@ -1,0 +1,4 @@
+for a in ContactCenter.js  CoreClient.js  CoreShared.js  easyxdm.js  frontend-annie.css  frontend-annie.html  frontend-common.css  icons.gif  System.js frontend-common.js load.gif CoreServer.html
+do
+  curl http://lg2.dijkconnect.com/agentterminal-web/$a > $a
+done

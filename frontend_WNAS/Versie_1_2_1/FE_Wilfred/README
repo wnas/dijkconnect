@@ -1,0 +1,5 @@
+FE die zoveel mogelijk lijkt op Annie FE productie, maar waar nodig is aangepast om op dyndns te draaien. 
+Daarnaast zijn de volgende aanpassingen voor test doorgevoerd:
+* CoreClient.js is aangepast zodat deze geen dubbele submits meer verstuurd.
+
+

@@ -36,7 +36,7 @@ function stuurknop(functie,variable,agent) {
 		var httpObj = new XMLHttpRequest();
 	} else {
 		if (window.ActiveXObject) {
-			httpObj = new ActiveXObject("Microsoft.XMLHTTP");
+			var httpObj = new ActiveXObject("Microsoft.XMLHTTP");
 		}
 	}
 
@@ -95,16 +95,14 @@ function TrackCount(fieldObj,countFieldName,maxChars)
   
 
 function getCheckedValue(radioObj) {
-	if(!radioObj){
+	if(!radioObj)
 		return "";
-	}
 	var radioLength = radioObj.length;
 	if(radioLength == undefined)
-		if(radioObj.checked){
+		if(radioObj.checked)
 			return radioObj.value;
-		}else{
+		else
 			return "";
-		}
 	for(var i = 0; i < radioLength; i++) {
 		if(radioObj[i].checked) {
 			return radioObj[i].value;
@@ -312,24 +310,10 @@ function elfproef(veld){
     }
   } 
 }
-alert('test');
+
 function firstFocus() {
     var TForm = document.forms[0]; /* We hebben maar 1 formulier */
-	/*
-		check to see how many forms we have.
-		if there are more than one, then we didn't destroy the old one.
-		if so, destroy the older one. and set focus on the new one.
-		
-		is there a way to flag the new one?
-	*/
-
-	
-	var len = TForm.length;
-	console.log('length = '+len);
-	alert(TForm[len-1].getAttribute('action'))
-
-	$(TForm).submit(function(){ doValidate });
-//    TForm.attachEvent('onsubmit',doValidate);
+    TForm.attachEvent('onsubmit',doValidate);
     for (var i=0;i<TForm.length;i++) {
         switch (TForm.elements[i].dbtype) {
            case 'DATUM' : { 
@@ -350,13 +334,13 @@ function firstFocus() {
         TForm.elements[i].lastPass = false;
          /* TForm.elements[i].attachEvent('onsubmit',doValidate); */
           
-          TForm.elements[i].addEventListener('onchange',doValidate);
-          TForm.elements[i].addEventListener('onclick',doValidate);
+          TForm.elements[i].attachEvent('onchange',doValidate);
+          TForm.elements[i].attachEvent('onclick',doValidate);
           
           if (TForm.elements[i].type == "text"){
-              TForm.elements[i].addEventListener('onkeypress',KeyboardHandler);
-              TForm.elements[i].addEventListener('onkeyup',doValidate);
-              TForm.elements[i].addEventListener('onkeyup',ArrowHandler);
+              TForm.elements[i].attachEvent('onkeypress',KeyboardHandler);
+              TForm.elements[i].attachEvent('onkeyup',doValidate);
+              TForm.elements[i].attachEvent('onkeyup',ArrowHandler);
           }
     }
     
@@ -426,7 +410,7 @@ function doValidate(what) {
 						try {
   			      eval (self.onvalid);
   			    } catch(r) {
-  			    	alert(r.description + ' in veld ' + self.name);
+  			    	alert(r.description + ' in veld ' + self.name)
   			    }
 //					  firstone = updateForm(which);
   			  }
@@ -436,7 +420,7 @@ function doValidate(what) {
 						try {
   					  eval (self.oninvalid);
   			    } catch(r) {
-  			    	alert(r.description + ' in veld ' + self.name);
+  			    	alert(r.description + ' in veld ' + self.name)
   			    }
 //					  firstone = updateForm(which);
 					}
@@ -584,18 +568,18 @@ function KeyboardHandler() {
 	var fields = event.srcElement.form.elements.length;
   var picFormatters = "09aAxX@_";
   var key = event.keyCode;
-  var chr = String.fromCharCode(key);
+  var char = String.fromCharCode(key);
 	var direction = 0;
 	if (elmnt.allowed) {
-		  alert(chr + " match against " + elmnt.allowed + " = " + chr.match(eval(elmnt.allowed)));
-		  if ( chr.match(eval(elmnt.allowed)) ) {
+		  alert(char + " match against " + elmnt.allowed + " = " + char.match(eval(elmnt.allowed)));
+		  if ( char.match(eval(elmnt.allowed)) ) {
 		  } else {
 		  	event.returnValue = false;
 		  	return false;
 		  }
 	}
 	if (elmnt.denied) {
-		  if ( chr.match(eval(elmnt.denied)) ) {
+		  if ( char.match(eval(elmnt.denied)) ) {
 		  	event.returnValue = false;
 		  	return false;
 		  }
@@ -1148,20 +1132,9 @@ function isRadioCheckedMail(rbName) {
 	return false;
 }
 
-
-function addEvent( obj, type, fn ) {
-  if ( obj.attachEvent ) {
-    obj['e'+type+fn] = fn;
-    obj[type+fn] = function(){obj['e'+type+fn]( window.event );}
-    obj.attachEvent( 'on'+type, obj[type+fn] );
-  } else
-    obj.addEventListener( type, fn, false );
-}
-
-addEvent( document, 'onload', firstFocus )
 //=== MAIN ===
 // Fire up form handler
-//window.attachEvent('onload', firstFocus);
+window.attachEvent('onload',firstFocus);
 
 
 
@@ -1180,8 +1153,6 @@ $(document).ready(function() {
 	location.href += "#bottom";
     //    $("#jadus").focus();
     });
-
-	firstFocus();
 
 });
 

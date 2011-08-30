@@ -691,12 +691,12 @@ var DCO = function(){
 		// these functions are priveledged
 		helpers = {
 		foo : function(arg){ 
-			console.log(arg)
+			console.log(arg);
 			}
 	},	
 		// stuff to return to the global namespace
 		init = function(){
-		helpers.foo(conf.bla)	
-	}
+		helpers.foo(conf.bla);	
+	};
 }();
 DCO.init();
