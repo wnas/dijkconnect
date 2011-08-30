@@ -378,8 +378,11 @@ function doValidate(what) {
 	var passval = true;
 	var which;
     
-        console.log('doValidate');
-        // console.log('Set window focus');
+       	console.log('type = '+event.type);
+       	console.log('tagname = '+event.srcElement.tagName);
+		console.log('name = '+event.srcElement.name);
+		console.log('value = '+event.srcElement.value);
+ // console.log('Set window focus');
         // window.focus();
 	
 	switch(event.type) {
@@ -387,7 +390,11 @@ function doValidate(what) {
 		case 'submit' : { which = event.srcElement; break; }
 		case 'keyup'  : { which = event.srcElement.form; break; }
 		case 'change'  : { which = event.srcElement.form; break; }
-    case 'click'	: { which = event.srcElement.form; break; }	
+    case 'click'	: { 
+		
+		which = event.srcElement.form; 
+		break; 
+	}	
 		default       : { return; }
 	}
 	for (var i=which.length-1;i>=0;i--) {
@@ -438,7 +445,8 @@ function doValidate(what) {
 /*      for (var foc = 1; foc <= self.document.getElementById('oMPC').children.length; foc++) {
 			self.document.getElementById('oMPC').selectedIndex = foc;
         try {*/
-				  firstone.focus();
+				console.log('firstone.focus 445');  
+				firstone.focus();
 /*				  break;
 		    } catch(e) {
 		    }
@@ -467,8 +475,8 @@ function doValidate(what) {
   	    }
       }
 			CallsheetServer.beforeSubmit();
-			CallsheetServer.beforeSubmit();
-			CallsheetServer.beforeSubmit();
+		//	CallsheetServer.beforeSubmit();
+		//	CallsheetServer.beforeSubmit();
 			event.returnValue = true;
 			return true;
 		}
@@ -481,6 +489,7 @@ function showInvalid(firstone) {
 /*      for (var foc = 1; foc <= self.document.getElementById('oMPC').children.length; foc++) {
 			self.document.getElementById('oMPC').selectedIndex = foc;
         try {*/
+				console.log('firstone.focus 489');
 				  firstone.focus();
 /*				  break;
 		    } catch(e) {
@@ -1153,6 +1162,26 @@ $(document).ready(function() {
 	location.href += "#bottom";
     //    $("#jadus").focus();
     });
+
+	var test = function(){
+		var config = {
+			// for name value pairs in common use
+		},	checkfocus = function(){
+			$('body').delegate('input','focus',function(e){
+				console.log( e.target.getAttribute('name') + ' has focus');
+			});
+			$('body').delegate('input','blur',function(e){
+				console.log( e.target.getAttribute('name') + ' lost focus');
+			});
+		},	init = function(){
+			console.log('init')
+			checkfocus();
+		};
+		return {
+			init:init
+		};
+	}();
+	test.init();
 
 });
 

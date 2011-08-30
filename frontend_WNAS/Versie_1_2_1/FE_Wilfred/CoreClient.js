@@ -321,7 +321,10 @@ var CoreClient = (function()
         this.resume             = function() { CoreClient.send( CMD_RESUME ); };
         this.mute               = function() { CoreClient.send( CMD_MUTE ); };
         this.unmute             = function() { CoreClient.send( CMD_UNMUTE ); };
-        this.submit             = function() { CoreClient.send( CMD_SUBMIT ); };
+        this.submit             = function() { 
+			console.log('this.submit')
+			CoreClient.send( CMD_SUBMIT ); 
+		};
         this.next               = function() { CoreClient.send( CMD_NEXT ); };
         this.callConnect        = function( phoneNumber ) { return DCOCall.create( phoneNumber ); };
         this.callDisconnect     = function() { return DCOCall.destroy(); };
