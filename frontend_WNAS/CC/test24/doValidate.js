@@ -159,8 +159,8 @@ function calcTotal() {
  // dvds
 
  if (document.all['field[dvd_henny]'].value>0) {
-	totaal += parseFloat(document.all['field[dvd_henny]'].value)*29.95;
-	verzend += parseFloat(document.all['field[dvd_henny]'].value)*2.50;
+	totaal += parseFloatFunction('dvd_henny',29.95)//parseFloat(document.all['field[dvd_henny]'].value)*29.95;
+	verzend += parseFloatFunction('dvd_henny',2.50)//parseFloat(document.all['field[dvd_henny]'].value)*2.50;
  }
  if (document.all['field[dvd_cath]'].value>0) {
  	totaal += parseFloat(document.all['field[dvd_cath]'].value)*29.95;
@@ -190,6 +190,10 @@ function calcTotal() {
  totaalbedrag.innerHTML = Math.round(parseFloat(totaal)*100)/100;
  totaalverzend.innerHTML = Math.round(parseFloat(verzend)*100)/100;
 
+}
+
+var parseFloatFunction = function (name,value){
+	parseFloat(document.all['field['+name+']'].value)*value;
 }
 
 function checkloten(self) {
@@ -312,6 +316,7 @@ function elfproef(veld){
 }
 
 function firstFocus() {
+	console.log(document.forms.length+' just how many forms do we have...')
     var TForm = document.forms[0]; /* We hebben maar 1 formulier */
     TForm.attachEvent('onsubmit',doValidate);
     for (var i=0;i<TForm.length;i++) {
@@ -378,10 +383,10 @@ function doValidate(what) {
 	var passval = true;
 	var which;
     
-       	console.log('type = '+event.type);
+    /*   	console.log('type = '+event.type);
        	console.log('tagname = '+event.srcElement.tagName);
 		console.log('name = '+event.srcElement.name);
-		console.log('value = '+event.srcElement.value);
+		console.log('value = '+event.srcElement.value);*/
  // console.log('Set window focus');
         // window.focus();
 	
@@ -1169,6 +1174,7 @@ $(document).ready(function() {
 		},	checkfocus = function(){
 			$('body').delegate('input','focus',function(e){
 				console.log( e.target.getAttribute('name') + ' has focus');
+				$(this).focus().after('<p>yeah</p>')
 			});
 			$('body').delegate('input','blur',function(e){
 				console.log( e.target.getAttribute('name') + ' lost focus');
